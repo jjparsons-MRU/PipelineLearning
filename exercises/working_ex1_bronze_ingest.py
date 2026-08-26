@@ -17,6 +17,7 @@ class BronzeIngestor:
             base_dir = Path(__file__).resolve().parent.parent
         self.base_dir = base_dir
         self.bronze_dir = self.base_dir / "data" / "bronze"
+        self.bronze_dir.mkdir(parents=True, exist_ok=True)
         
         # TODO: Make sure the bronze directory exists! (Hint: use mkdir)
         
@@ -53,13 +54,22 @@ class BronzeIngestor:
         TODO: Fetch constituents and gifts (using the mock methods above for now),
         and write them to data/bronze as JSON files.
         """
-        pass
+        constituent_data = self.generate_mock_constituents()
+        out_path = self.bronze_dir/"constituents.json"
+        with open(outpath, "w") as f:
+                json.dump(constituent_data, f, indent=4)
+        
+        gift_data = self.generate_mock_gifts()
+        out_path = self.bronze_dir/"gifts_json"
+        with open(out_path, "w") as f:
+            json.dump(gift_data, f, indent=4)
 
     def ingest_from_csv(self):
         """
         TODO: Fetch dates and revenue types (using the mock dataframe methods above),
         and write them to data/bronze as CSV files.
         """
+        outliers_df.to_csv(output_path, index=False)
         pass
 
     def ingest_from_sql(self):

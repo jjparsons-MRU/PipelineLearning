@@ -74,6 +74,13 @@ PipelineLearning/
 ### Exercise 5: Gold Publishing (`exercises/ex5_gold_publish.py`)
 * **Goal**: Export final data products to OneDrive/SharePoint or local targets ready for Power BI auto-refresh.
 
+### Exercise 6: Real-World API Integration (Capstone)
+* **Goal**: Swap out the mock data engines for live API calls.
+* **Tasks**:
+  - Implement OAuth 2.0 / Bearer token authentication.
+  - Replace `generate_mock_constituents()` and `generate_mock_gifts()` with `requests.get()` calls to the real Blackbaud SKY API (or other live endpoints).
+  - Refactor the Silver layer (`ex2` and `ex3`) to accommodate any schema changes between the mock data and the real API JSON responses.
+
 ---
 
 ## Collaborative Learning Method
