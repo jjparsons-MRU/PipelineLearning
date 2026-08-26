@@ -56,11 +56,11 @@ class BronzeIngestor:
         """
         constituent_data = self.generate_mock_constituents()
         out_path = self.bronze_dir/"constituents.json"
-        with open(outpath, "w") as f:
-                json.dump(constituent_data, f, indent=4)
+        with open(out_path, "w") as f:
+            json.dump(constituent_data, f, indent=4)
         
         gift_data = self.generate_mock_gifts()
-        out_path = self.bronze_dir/"gifts_json"
+        out_path = self.bronze_dir/"gifts.json"
         with open(out_path, "w") as f:
             json.dump(gift_data, f, indent=4)
 
