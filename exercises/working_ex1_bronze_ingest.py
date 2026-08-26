@@ -81,3 +81,4 @@ class BronzeIngestor:
 if __name__ == "__main__":
     ingestor = BronzeIngestor()
     ingestor.run_ingestion()
+
