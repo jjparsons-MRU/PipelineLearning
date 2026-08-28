@@ -14,7 +14,7 @@ if str(file_root) not in sys.path:
     sys.path.insert(0, str(file_root))
 
 import pandas as pd
-from exercises.ex2_silver_cleanse import SilverCleanser
+from ex2_silver_cleanse_completed import SilverCleanser
 
 
 class SilverModeler:

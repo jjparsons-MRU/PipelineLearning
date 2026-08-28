@@ -12,7 +12,7 @@ if str(file_root) not in sys.path:
     sys.path.insert(0, str(file_root))
 
 import pandas as pd
-from exercises.ex4_gold_analytics import GoldAnalyticsEngine
+from ex4_gold_analytics_completed import GoldAnalyticsEngine
 
 
 class GoldPublisher:

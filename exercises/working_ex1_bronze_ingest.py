@@ -65,17 +65,45 @@ class BronzeIngestor:
             json.dump(gift_data, f, indent=4)
 
     def ingest_from_csv(self):
+
+        dates = self.generate_mock_dates_csv()
+        revenue_data = self.generate_mock_revenue_csv()
+
+        dates.to_csv(self.bronze_dir/"dates.csv", index=False)
+        revenue_data.to_csv(self.bronze_dir/"revenue.csv", index=False)
+           
+
         """
         TODO: Fetch dates and revenue types (using the mock dataframe methods above),
         and write them to data/bronze as CSV files.
         """
-        outliers_df.to_csv(output_path, index=False)
-        pass
+ 
 
     def ingest_from_sql(self):
         """
         TODO: Future-proofing! Create a stub for SQL ingestion.
         It doesn't need to do anything yet, just pass or raise NotImplementedError.
+
+    def ingest_from_sql(self):
+        # 1. We wrap it in a try/except because we know the database doesn't exist yet!
+        try:
+            # 2. Write your mock connection string and query
+            conn_str = "sqlite:///mock_database.db"
+            query = "SELECT * FROM campaigns"
+            
+            # 3. Use pandas to read the SQL query into a DataFrame
+            df = pd.read_sql(query, conn_str)
+            
+            # 4. Save the DataFrame to the Bronze directory as a CSV
+            df.to_csv(self.bronze_dir / "sql_campaigns.csv", index=False)
+            
+        except Exception as e:
+            print(f"SQL Ingestion skipped (Future implementation): {e}")
+
+
+
+
+
         """
         pass
 
@@ -84,6 +112,12 @@ class BronzeIngestor:
         TODO: Orchestrate the ingestion process by calling the methods above.
         """
         print("Starting Bronze Layer Ingestion...")
+        self.ingest_from_api()
+        print("Processing API ...")
+        self.ingest_from_csv()
+        print("Processing CSV ...")
+        #self.ingest_from_sql()
+        #print("Processing SQL ...")
         # Call your ingestion methods here!
         print("Bronze Ingestion Completed Successfully!\n")
 

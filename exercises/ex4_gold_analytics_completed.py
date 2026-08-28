@@ -14,7 +14,7 @@ if str(file_root) not in sys.path:
     sys.path.insert(0, str(file_root))
 
 import pandas as pd
-from exercises.ex3_silver_model import SilverModeler
+from ex3_silver_model_completed import SilverModeler
 
 
 class GoldAnalyticsEngine:
