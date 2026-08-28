@@ -10,7 +10,9 @@ env/
 .env
 
 # Data Files (Do not commit local data)
-data/
+**/data/*
+!**/data/**/
+!**/data/**/.gitkeep
 *.csv
 *.json
 *.xlsx
