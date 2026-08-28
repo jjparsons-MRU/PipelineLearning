@@ -45,6 +45,15 @@ class BronzeIngestor:
         revenue_data = [{"Revenue_Type_ID": "REV-01", "Name": "Unrestricted Annual Fund", "Category": "Annual"}]
         return pd.DataFrame(revenue_data)
 
+    """
+    Future proofing this to allow for easier scalability when adding APIs.
+
+    API_ENDPOINTS = {
+        "constituents": "https://api.sky.blackbaud.com/constituent/",
+        "gifts": "https://api.sky.blackbaud.com/gift/",
+        "prospect":"https://api.sky.blackbaud.com/prospect"          
+    }
+    """
     # -------------------------------------------------------------------------
     # TODO: Implement Strategy Pattern / Ingestion Methods Below
     # -------------------------------------------------------------------------
@@ -63,6 +72,36 @@ class BronzeIngestor:
         out_path = self.bronze_dir/"gifts.json"
         with open(out_path, "w") as f:
             json.dump(gift_data, f, indent=4)
+    """Future proofing: calling from the API dictionary.
+    def ingest_all_apis(self, api_endpoints: dict = API_ENDPOINTS):
+        #this will iterate over all endpoints in the disctionary.
+        for name, url in api_endpoints.items():
+            print(f"Fetching {name} from {url} ...")
+            try:
+                # Send HTTP request
+                headers = {"Authorization": f"Bearer {my_access_token}"}
+                response = requests.get(url, headers=headers, timeout=10)
+                
+                # Raise an exception for HTTP error statuses (4xx, 5xx)
+                response.raise_for_status()
+                
+                # Parse response body as JSON
+                data = response.json()
+                
+                # Define output destination
+                out_path = self.bronze_dir / f"{name}.json"
+                
+                # Write raw JSON output
+                with open(out_path, "w") as f:
+                    json.dump(data, f, indent=4)
+                
+                print(f"Successfully saved {name} to {out_path}")
+
+            except requests.exceptions.RequestException as e:
+                # Catch network errors, timeouts, or bad HTTP status codes without stopping the pipeline
+                print(f"Failed to ingest {name} from {url}: {e}")
+    """
+
 
     def ingest_from_csv(self):
 
@@ -83,8 +122,8 @@ class BronzeIngestor:
         """
         TODO: Future-proofing! Create a stub for SQL ingestion.
         It doesn't need to do anything yet, just pass or raise NotImplementedError.
-
-    def ingest_from_sql(self):
+        """
+        #This is a future implementation to allow for SQL ingestion. Right now we're just mockin in the free world.
         # 1. We wrap it in a try/except because we know the database doesn't exist yet!
         try:
             # 2. Write your mock connection string and query
@@ -100,13 +139,6 @@ class BronzeIngestor:
         except Exception as e:
             print(f"SQL Ingestion skipped (Future implementation): {e}")
 
-
-
-
-
-        """
-        pass
-
     def run_ingestion(self):
         """
         TODO: Orchestrate the ingestion process by calling the methods above.
@@ -116,8 +148,7 @@ class BronzeIngestor:
         print("Processing API ...")
         self.ingest_from_csv()
         print("Processing CSV ...")
-        #self.ingest_from_sql()
-        #print("Processing SQL ...")
+   
         # Call your ingestion methods here!
         print("Bronze Ingestion Completed Successfully!\n")
 
