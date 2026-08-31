@@ -213,26 +213,26 @@ class BronzeIngestor:
         const_path = self.bronze_dir / "bronze_constituents.json"
         with open(const_path, "w", encoding="utf-8") as f:
             json.dump(constituents, f, indent=2)
-        print(f"Saved Bronze Constituents: {const_path}")
+        print(f"Saved Bronze Constituents: .{os.sep}{const_path.relative_to(self.base_dir)}")
 
         # 2. Ingest Gifts
         gifts = self.generate_mock_gifts()
         gift_path = self.bronze_dir / "bronze_gifts.json"
         with open(gift_path, "w", encoding="utf-8") as f:
             json.dump(gifts, f, indent=2)
-        print(f"Saved Bronze Gifts: {gift_path}")
+        print(f"Saved Bronze Gifts: .{os.sep}{gift_path.relative_to(self.base_dir)}")
 
         # 3. Ingest Dates CSV
         dates_df = self.generate_mock_dates_csv()
         dates_path = self.bronze_dir / "bronze_dates.csv"
         dates_df.to_csv(dates_path, index=False)
-        print(f"Saved Bronze Dates: {dates_path}")
+        print(f"Saved Bronze Dates: .{os.sep}{dates_path.relative_to(self.base_dir)}")
 
         # 4. Ingest Revenue CSV
         revenue_df = self.generate_mock_revenue_csv()
         revenue_path = self.bronze_dir / "bronze_revenue.csv"
         revenue_df.to_csv(revenue_path, index=False)
-        print(f"Saved Bronze Revenue Types: {revenue_path}")
+        print(f"Saved Bronze Revenue Types: .{os.sep}{revenue_path.relative_to(self.base_dir)}")
 
         print("Bronze Ingestion Completed Successfully!\n")
 

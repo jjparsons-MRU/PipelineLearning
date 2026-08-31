@@ -5,6 +5,7 @@ Goal: Compute business analytics and segmentation metrics (LYBUNT, SYBUNT, Recen
 Outputs gold_donor_analytics.csv to data/gold/.
 """
 
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -108,7 +109,7 @@ class GoldAnalyticsEngine:
         gold_path = self.gold_dir / "gold_donor_analytics.csv"
         gold_df.to_csv(gold_path, index=False)
 
-        print(f"Saved Gold Donor Analytics: {gold_path}")
+        print(f"Saved Gold Donor Analytics: .{os.sep}{gold_path.relative_to(self.base_dir)}")
         print("Gold Analytics Completed Successfully!\n")
         return gold_df
 

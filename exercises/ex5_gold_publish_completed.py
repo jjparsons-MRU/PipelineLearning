@@ -4,6 +4,7 @@ Exercise 5: Gold Publishing
 Goal: Export curated data products to Power BI / SharePoint publishing targets (data/publish/).
 """
 
+import os
 import sys
 from pathlib import Path
 
@@ -33,13 +34,13 @@ class GoldPublisher:
         # Publish Donor Analytics Table
         target_path = self.publish_dir / "powerbi_donor_analytics.csv"
         gold_df.to_csv(target_path, index=False)
-        print(f"Published Power BI Donor Analytics file: {target_path}")
+        print(f"Published Power BI Donor Analytics file: .{os.sep}{target_path.relative_to(self.base_dir)}")
 
         # Also publish Excel report version for business stakeholders
         excel_path = self.publish_dir / "powerbi_donor_analytics.xlsx"
         try:
             gold_df.to_excel(excel_path, index=False, sheet_name="Donor Analytics")
-            print(f"Published Excel report file: {excel_path}")
+            print(f"Published Excel report file: .{os.sep}{excel_path.relative_to(self.base_dir)}")
         except Exception as e:
             print(f"Excel export skipped ({e})")
 

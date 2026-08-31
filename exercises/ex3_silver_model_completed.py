@@ -6,6 +6,7 @@ Goal: Build Silver tables ready for analytics.
 - silver_gift_transactions.csv: Enriched gift transactions joined with Date & Revenue dimensions.
 """
 
+import os
 import sys
 from pathlib import Path
 
@@ -80,13 +81,13 @@ class SilverModeler:
         const_summary = self.build_constituent_summary(const_raw)
         summary_path = self.silver_dir / "silver_constituent_summary.csv"
         const_summary.to_csv(summary_path, index=False)
-        print(f"Saved Silver Constituent Summary: {summary_path}")
+        print(f"Saved Silver Constituent Summary: .{os.sep}{summary_path.relative_to(self.base_dir)}")
 
         # 2. Build gift transactions
         gift_transactions = self.build_gift_transactions(gifts_raw, dates_raw, rev_raw)
         transactions_path = self.silver_dir / "silver_gift_transactions.csv"
         gift_transactions.to_csv(transactions_path, index=False)
-        print(f"Saved Silver Gift Transactions: {transactions_path}")
+        print(f"Saved Silver Gift Transactions: .{os.sep}{transactions_path.relative_to(self.base_dir)}")
 
         print("Silver Modeling Completed Successfully!\n")
         return const_summary, gift_transactions
