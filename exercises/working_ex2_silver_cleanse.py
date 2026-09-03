@@ -10,16 +10,27 @@ import json
 import re
 from pathlib import Path
 import pandas as pd
+import datetime
 
 def to_snake_case(name: str) -> str:
     """Helper to convert string to snake_case."""
     # TODO: write regex or string replacements to convert CamelCase to snake_case
-    pass
+    s = name.strip() #removes whitespace
+    s = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', s) #looks for a capital letter followed by any number of lowercase, then inserts _ after the character immediately preceeding the capital
+    s = re.sub('([a-z0-9])([A-Z])', r'\1_\2', s)#similarly, looks for a capital letter preceeded by lowercase or a number and inserts _
+    s = s.lower() #converts all uppercase letters to lowercase
+    return re.sub(r'[\s\-_]+', '_', s) #replaces any whitespace, hyphens, or underscores with a single underscore
+ 
 
 def format_date(val) -> str:
     """Helper to format date string to MM/DD/YYYY format."""
-    # TODO: parse the date using pd.to_datetime and return a string in MM/DD/YYYY
-    pass
+    if pd.isna(val):
+        return None
+    try:
+        dt = pd.to_datetime(val)
+        return dt.strftime('%m/%d/%Y')
+    except Exception:
+        return None
 
 class SilverCleanser:
     def __init__(self, base_dir: Path = None):
